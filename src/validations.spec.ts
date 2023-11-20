@@ -405,7 +405,7 @@ describe("HTMLFormValidations.email", () => {
 
   describe("when the field's value is a valid email", () => {
     test("should return true", () => {
-      const [form, field] = createAndGetFormAndInput("text", "support@djenkinsdev@gmail.com");
+      const [form, field] = createAndGetFormAndInput("text", "support@gmail.com");
       expect(HTMLFormValidations.email(form, field)).toBe(true);
     });
   });

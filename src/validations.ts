@@ -128,7 +128,8 @@ export class HTMLFormValidations {
   }
 
   static email(form: HTMLFormElement, field: HTMLInputElement) {
-    return EMAIL_REGEX.test(field.value.trim());
+    HTMLFormValidations.trim(form, field);
+    return EMAIL_REGEX.test(field.value);
   }
 
   static ipvFour(form: HTMLFormElement, field: HTMLInputElement) {
@@ -175,7 +176,8 @@ export class HTMLFormValidations {
   }
 
   static required(form: HTMLFormElement, field: HTMLInputElement) {
-    return (field.value?.trim().length ?? 0) > 0;
+    HTMLFormValidations.trim(form, field);
+    return (field.value?.length ?? 0) > 0;
   }
 
   static requiredIf(
@@ -215,6 +217,10 @@ export class HTMLFormValidations {
       field.value == otherField?.value :
       field.value?.toLowerCase() == otherField.value?.toLowerCase();
   }
+
+    static trim(form: HTMLFormElement, field: HTMLInputElement) {
+        return field.value = field.value.trim();
+    }
 
   static url(form: HTMLFormElement, field: HTMLInputElement) {
     return URL_REGEX.test(field.value);
