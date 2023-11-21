@@ -17,10 +17,11 @@
       document.addEventListener('DOMContentLoaded', function() {
         const formSelector = ".form-one";
         const inputSelector = "input:first-child";
+        const patternEmail = "^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
 
         const validatinator = new Validatinator({
           [formSelector]: {
-            [inputSelector]: "trim|required|alpha"
+            [inputSelector]: `trim|typeString`
           }
         });
 

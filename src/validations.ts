@@ -26,19 +26,19 @@ export class HTMLFormValidations {
    * Ensures the value of the field only contains alpha characters.
    */
   static alpha(form: HTMLFormElement, field: HTMLInputElement) {
-    return ALPHA_REGEX.test(field.value);
+    return (field.value?.length ?? 0) > 0 ? ALPHA_REGEX.test(field.value) : true;
   }
 
   static alphaDash(form: HTMLFormElement, field: HTMLInputElement) {
-    return ALPHA_DASH_REGEX.test(field.value);
+    return (field.value?.length ?? 0) > 0 ? ALPHA_DASH_REGEX.test(field.value) : true;
   }
 
   static alphaNum(form: HTMLFormElement, field: HTMLInputElement) {
-    return ALPHA_NUMERIC_REGEX.test(field.value);
+    return (field.value?.length ?? 0) > 0 ? ALPHA_NUMERIC_REGEX.test(field.value) : true;
   }
 
   static alphaDashNum(form: HTMLFormElement, field: HTMLInputElement) {
-    return ALPHA_NUMERIC_DASH_REGEX.test(field.value);
+    return (field.value?.length ?? 0) > 0 ? ALPHA_NUMERIC_DASH_REGEX.test(field.value) : true;
   }
 
   static between(
@@ -128,7 +128,7 @@ export class HTMLFormValidations {
   }
 
   static email(form: HTMLFormElement, field: HTMLInputElement) {
-    return EMAIL_REGEX.test(field.value);
+    return (field.value?.length ?? 0) > 0 ? EMAIL_REGEX.test(field.value) : true;
   }
 
   static ipvFour(form: HTMLFormElement, field: HTMLInputElement) {
@@ -216,17 +216,21 @@ export class HTMLFormValidations {
       field.value?.toLowerCase() == otherField.value?.toLowerCase();
   }
 
+  static typeString(form: HTMLFormElement, field: HTMLInputElement|any) {
+    return (field.value?.length ?? 0) > 0 ? (typeof field.value === 'string' || field.value instanceof String) : true;
+  }
+
   static trim(form: HTMLFormElement, field: HTMLInputElement) {
-    field.value = field.value.trim();
+    field.value = (field.value?.length ?? 0) > 0 ? field.value.trim() : field.value;
     return true;
   }
 
   static url(form: HTMLFormElement, field: HTMLInputElement) {
-    return URL_REGEX.test(field.value);
+    return (field.value?.length ?? 0) > 0 ? URL_REGEX.test(field.value) : true;
   }
 
   static pattern(form: HTMLFormElement, field: HTMLInputElement, regexString: string | RegExp) {
     const regex = new RegExp(regexString);
-    return regex.test(field.value);
+    return (field.value?.length ?? 0) > 0 ? regex.test(field.value) : true;
   }
 }

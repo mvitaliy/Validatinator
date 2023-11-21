@@ -22,11 +22,12 @@ export const DEFAULT_MESSAGES: ValidationMessages = {
   minLength: "This field must be ${0} or more characters long.",
   notIn: "This field cannot be one of: ${...}.",
   number: "This field must be a valid number.",
+  pattern: "This field must match the regex pattern provided.",
   required: "This field is required.",
   requiredIf: "This field is required if the value of ${0} equals {$1}.",
   requiredIfNot: "This field is required if the value of ${0} does not equal {$1}.",
   same: "This field must be the same value as ${0}.",
   trim: "This field should be trimmed.",
-  url: "This field must be a valid URL.",
-  pattern: "This field must match the regex pattern provided."
+  typeString: "This field must be 'string'",
+  url: "This field must be a valid URL."
 };
