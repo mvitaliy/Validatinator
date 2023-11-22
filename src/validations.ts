@@ -174,8 +174,12 @@ export class HTMLFormValidations {
     return !isNaN(parseFloat(field.value));
   }
 
-  static required(form: HTMLFormElement, field: HTMLInputElement) {
-    return (field.value?.length ?? 0) > 0;
+  static required(form: HTMLFormElement, field: HTMLInputElement|HTMLFormElement) {
+    let value: any = field.value;
+    if (!!(field as HTMLFormElement).options && !!(field as HTMLFormElement).options[(field as HTMLFormElement).selectedIndex].value) {
+        value = (field as HTMLFormElement).options[(field as HTMLFormElement).selectedIndex].value;
+    }
+    return (value?.length ?? 0) > 0;
   }
 
   static requiredIf(
