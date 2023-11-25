@@ -155,7 +155,7 @@ export class HTMLFormValidations {
   }
 
   static maxLength(form: HTMLFormElement, field: HTMLInputElement, maxLength: string | number) {
-    return HTMLFormValidations.betweenLength(form, field, -Infinity, maxLength);
+    return (field.value?.length ?? 0) > 0 ? HTMLFormValidations.betweenLength(form, field, -Infinity, maxLength) : true;
   }
 
   static min(form: HTMLFormElement, field: HTMLInputElement, min: string | number) {
@@ -163,7 +163,7 @@ export class HTMLFormValidations {
   }
 
   static minLength(form: HTMLFormElement, field: HTMLInputElement, minLength: string | number) {
-    return HTMLFormValidations.betweenLength(form, field, minLength, Infinity);
+    return (field.value?.length ?? 0) > 0 ? HTMLFormValidations.betweenLength(form, field, minLength, Infinity) : true;
   }
 
   static notIn(form: HTMLFormElement, field: HTMLInputElement, ...arr: string[]) {
