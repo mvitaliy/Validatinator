@@ -21,16 +21,19 @@ export class Validatinator {
 
     Object.keys(formFieldConfigs).forEach((fieldSelector: string) => {
       const field = form.querySelector(fieldSelector);
-      if (!field) throw new Error(`No field found with selector: ${fieldSelector}`);
 
-      const unpreparedValidationRules = formFieldConfigs[fieldSelector];
-      prepareValidationRules(unpreparedValidationRules).forEach(([method, ...params]) => {
-        const methodCallable = (HTMLFormValidations as any)[method];
-        if (!methodCallable) throw new Error(`No validation method found with name: ${method}`);
+      // if (!field) throw new Error(`No field found with selector: ${fieldSelector}`);
+      if (!!field) {
+        const unpreparedValidationRules = formFieldConfigs[fieldSelector];
 
-        const result = methodCallable(form, field, ...params);
-        stateBuilder.addResult(fieldSelector, method, result);
-      });
+        prepareValidationRules(unpreparedValidationRules).forEach(([method, ...params]) => {
+          const methodCallable = (HTMLFormValidations as any)[method];
+          if (!methodCallable) throw new Error(`No validation method found with name: ${method}`);
+
+          const result = methodCallable(form, field, ...params);
+          stateBuilder.addResult(fieldSelector, method, result);
+        });
+      }
     });
 
     return stateBuilder.build();
