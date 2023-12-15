@@ -19,7 +19,7 @@ export class HTMLFormValidations {
    * Note: Only works on checkboxes.
    */
   static accepted(form: HTMLFormElement, field: HTMLInputElement) {
-    return field.checked === true;
+    if (!!field) return field.checked === true;
   }
 
   /**
@@ -155,7 +155,7 @@ export class HTMLFormValidations {
   }
 
   static maxLength(form: HTMLFormElement, field: HTMLInputElement, maxLength: string | number) {
-    return (field.value?.length ?? 0) > 0 ? HTMLFormValidations.betweenLength(form, field, -Infinity, maxLength) : true;
+    if (!!field) return (field.value?.length ?? 0) > 0 ? HTMLFormValidations.betweenLength(form, field, -Infinity, maxLength) : true;
   }
 
   static min(form: HTMLFormElement, field: HTMLInputElement, min: string | number) {
@@ -163,7 +163,7 @@ export class HTMLFormValidations {
   }
 
   static minLength(form: HTMLFormElement, field: HTMLInputElement, minLength: string | number) {
-    return (field.value?.length ?? 0) > 0 ? HTMLFormValidations.betweenLength(form, field, minLength, Infinity) : true;
+    if (!!field) return (field.value?.length ?? 0) > 0 ? HTMLFormValidations.betweenLength(form, field, minLength, Infinity) : true;
   }
 
   static notIn(form: HTMLFormElement, field: HTMLInputElement, ...arr: string[]) {
@@ -175,11 +175,14 @@ export class HTMLFormValidations {
   }
 
   static required(form: HTMLFormElement, field: HTMLInputElement|HTMLFormElement) {
-    let value: any = field.value;
-    if (!!(field as HTMLFormElement).options && !!(field as HTMLFormElement).options[(field as HTMLFormElement).selectedIndex].value) {
-        value = (field as HTMLFormElement).options[(field as HTMLFormElement).selectedIndex].value;
+    if (!!field) {
+      let value: any = field.value;
+
+      if (!!(field as HTMLFormElement).options && !!(field as HTMLFormElement).options[(field as HTMLFormElement).selectedIndex].value) {
+          value = (field as HTMLFormElement).options[(field as HTMLFormElement).selectedIndex].value;
+      }
+      return (value?.length ?? 0) > 0;
     }
-    return (value?.length ?? 0) > 0;
   }
 
   static requiredIf(
@@ -221,12 +224,15 @@ export class HTMLFormValidations {
   }
 
   static typeString(form: HTMLFormElement, field: HTMLInputElement|any) {
-    return (field.value?.length ?? 0) > 0 ? (typeof field.value === 'string' || field.value instanceof String) : true;
+    if (!!field) return (field.value?.length ?? 0) > 0 ? (typeof field.value === 'string' || field.value instanceof String) : true;
   }
 
   static trim(form: HTMLFormElement, field: HTMLInputElement) {
-    field.value = (field.value?.length ?? 0) > 0 ? field.value.trim() : field.value;
-    return true;
+    if (!!field) {
+      field.value = (field.value?.length ?? 0) > 0 ? field.value.trim() : field.value;
+
+      return true;
+    }
   }
 
   static url(form: HTMLFormElement, field: HTMLInputElement) {
@@ -234,7 +240,10 @@ export class HTMLFormValidations {
   }
 
   static pattern(form: HTMLFormElement, field: HTMLInputElement, regexString: string | RegExp) {
-    const regex = new RegExp(regexString);
-    return (field.value?.length ?? 0) > 0 ? regex.test(field.value) : true;
+    if (!!field) {
+      const regex = new RegExp(regexString);
+
+      return (field.value?.length ?? 0) > 0 ? regex.test(field.value) : true;
+    }
   }
 }
