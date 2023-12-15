@@ -1,6 +1,6 @@
 # Validatinator (Reborn)
 
-Current Release: 3.0.5 [Reborn]
+Current Release: 3.0.6 [Reborn]
 
 Validatinator is a simple, yet effective, HTML form validation library built for JavaScript/TypeScript.
 
